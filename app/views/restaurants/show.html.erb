@@ -1,0 +1,78 @@
+<div class="card-flex">
+  <div class="text-center card" style="width: 18rem;">
+     <div class="card-body">
+      <h4> <%= @restaurant.name %></h4>
+      <br>
+      <%= @restaurant.address %>
+      <br>
+      <%= @restaurant.stars %> stars
+      <br>
+      <%= @restaurant.chef %>
+    </div>
+  </div>
+</div>
+<div class="edit">
+  <%= link_to edit_restaurant_path(@restaurant) do %>
+    <button class="btn btn-outline-warning"> edit</button>
+  <% end %>
+</div>
+
+<div class="all-restaurants">
+  <%= link_to restaurants_path do %>
+    <button class="btn btn-outline-primary"> back</button>
+  <% end %>
+</div>
+<div class="delete">
+  <%= link_to restaurant_path(@restaurant), method: :delete, data: { confirm: 'Are you sure?' } do  %>
+  <button class="btn btn-outline-danger">delete</button>
+  <% end %>
+</div>
+
+<div class="review" >
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">add a review</button>
+</div>
+<div class="review-box">
+  <div class="container">
+    <div class="row">
+      <% @restaurant.reviews.each do |review| %>
+        <div class="col-md-4">
+          <div class="card">
+              <div class="card-header">
+                 <%= review.user %>
+               </div>
+               <div class="card-body">
+                 <h5 class="card-title"><%= @restaurant.name %></h5>
+              <p class="card-text"> <%= review.content %></p>
+               </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+<%= simple_form_for [@restaurant, @review] do |f| %>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <p class="modal-title">input your review!</p>
+        </div>
+
+         <div class="modal-body">
+          <%= f.input :user, class: "xeview-content-box" %>
+          <%= f.input :content, class: "review-content-box" %>
+
+
+        </div>
+
+        <div class="modal-footer">
+          <%= f.submit "add a review", class: "btn btn-primary" %>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+<% end %>
+  </div>
+</div>

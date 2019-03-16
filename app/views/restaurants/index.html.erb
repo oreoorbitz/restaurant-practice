@@ -1,0 +1,15 @@
+<div class="header">
+<h1>check out these cool restaurants!</h1>
+</div>
+ <div class="card-container">
+<% @restaurants.each do |restaurant| %>
+    <div class="restaurant-card"> <%= link_to restaurant.name, restaurant_path(restaurant) %> </div>
+<% end %>
+ </div>
+<div class="footer-container">
+<%= link_to  new_restaurant_path do %>
+  <button class="btn btn-outline-dark">new restuarant</button>
+<% end %>
+
+</div>
+
